@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_val.c                                      :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ooksuz <ooksuz@student.42istanbul.com.tr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 23:28:27 by ooksuz            #+#    #+#             */
-/*   Updated: 2023/08/18 23:24:59 by ooksuz           ###   ########.fr       */
+/*   Created: 2023/08/18 20:19:06 by ooksuz            #+#    #+#             */
+/*   Updated: 2023/08/18 16:53:19 by ooksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_val(t_data *data, char **env, char *val)
+char	*ft_substr(t_data *data, char *str, int len)
 {
-	int		i;
+		char	*rt;
+		int		i;
 
-	i = -1;
-	while (env[++i])
-	{
-		if (ft_strncmp(env[i], val, ft_strlen(val)) == 0)
+		rt = (char *)malloc(sizeof(char) * (len + 1));
+		if (!rt)
+				ft_exit("Malloc ERROR\n", data);
+		i = 0;
+		while(str[i] && i < len)
 		{
-			free(val);
-			return (ft_dupstr(data, env[i] + ft_strlen(val)));
+				rt[i] = str[i];
+				i++;
 		}
-	}
-	return (NULL);
+		rt[i] = 0;
+		return (rt);
 }

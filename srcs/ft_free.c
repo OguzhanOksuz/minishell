@@ -1,29 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_val.c                                      :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ooksuz <ooksuz@student.42istanbul.com.tr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 23:28:27 by ooksuz            #+#    #+#             */
-/*   Updated: 2023/08/18 23:24:59 by ooksuz           ###   ########.fr       */
+/*   Created: 2023/08/19 11:41:14 by ooksuz            #+#    #+#             */
+/*   Updated: 2023/08/19 14:26:42 by ooksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_val(t_data *data, char **env, char *val)
+void	arr_free(void **ptr)
 {
-	int		i;
+		int		i;
 
-	i = -1;
-	while (env[++i])
-	{
-		if (ft_strncmp(env[i], val, ft_strlen(val)) == 0)
+		if (ptr)
 		{
-			free(val);
-			return (ft_dupstr(data, env[i] + ft_strlen(val)));
+				i = -1;
+				while (ptr[++i])
+						free(ptr[i]);
+				free(ptr);
 		}
-	}
-	return (NULL);
+		ptr = 0;
+}
+
+void	ptr_free(void *ptr)
+{
+		if (ptr)
+				free(ptr);
+		ptr = 0;
+}
+
+void	ft_free(t_data *data)
+{
+		if (data)
+		{
+				arr_free((void **)data->tokens);
+				ptr_free((void *)data->line);
+		}
 }
