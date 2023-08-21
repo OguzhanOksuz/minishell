@@ -6,13 +6,13 @@
 /*   By: ooksuz <ooksuz@student.42istanbul.com.tr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:41:14 by ooksuz            #+#    #+#             */
-/*   Updated: 2023/08/19 14:26:42 by ooksuz           ###   ########.fr       */
+/*   Updated: 2023/08/20 00:24:43 by ooksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	arr_free(void **ptr)
+void	arr_free(char **ptr)
 {
 		int		i;
 
@@ -23,21 +23,21 @@ void	arr_free(void **ptr)
 						free(ptr[i]);
 				free(ptr);
 		}
-		ptr = 0;
 }
 
-void	ptr_free(void *ptr)
+void	ptr_free(char *ptr)
 {
 		if (ptr)
 				free(ptr);
-		ptr = 0;
 }
 
 void	ft_free(t_data *data)
 {
 		if (data)
 		{
-				arr_free((void **)data->tokens);
-				ptr_free((void *)data->line);
+				arr_free(data->tokens);
+				data->tokens = 0;
+				ptr_free(data->line);
+				data->line = 0;
 		}
 }

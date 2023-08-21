@@ -6,36 +6,36 @@
 /*   By: ooksuz <ooksuz@student.42istanbul.com.tr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:45:14 by ooksuz            #+#    #+#             */
-/*   Updated: 2023/08/19 14:38:13 by ooksuz           ###   ########.fr       */
+/*   Updated: 2023/08/20 00:25:34 by ooksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	arr_add_back(char **arr, char *str, t_data *data)
+void	arr_add_back(char *str, t_data *data)
 {
 	char	**rt;
 	int		i;
 
-	i = 0;
-	if (!arr)
+	if (data->tokens == 0)
 	{
-			arr = (char **)malloc(sizeof(char *) * 1);
-			if (!arr)
+			data->tokens = (char **)malloc(sizeof(char *) * 1);
+			if (!data->tokens)
 					ft_exit("Malloc ERROR\n", data);
-			arr[0] = 0;
+			data->tokens[0] = 0;
 	}
-	while (arr[i])
+	i = 0;
+	while (data->tokens[i])
 		i++;
-	rt = (char **)malloc(sizeof(char *) * (i + 2));
+	rt = (char **)malloc(sizeof(char *) * (i + 1 + 1));
 	if (!rt)
 		ft_exit("Malloc Error\n", data);
 	i = -1;
-	while (arr[++i])
-		rt[i] = arr[i];
+	while (data->tokens[++i])
+		rt[i] = data->tokens[i];
 	rt[i++] = str;
 	rt[i] = 0;
-	if (arr)
-		free(arr);
-	arr = rt;
+	if (data->tokens)
+		free(data->tokens);
+	data->tokens = rt;
 }
